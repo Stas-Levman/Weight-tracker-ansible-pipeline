@@ -1,0 +1,25 @@
+---
+   - name: Get facts for all Public IPs within resource groups
+     azure.azcollection.azure_rm_publicipaddress_info:
+       resource_group: "{{ resource_group_name }}"
+     register: output_ip_address
+
+
+   - name: Get loadbalancer info
+     azure.azcollection.azure_rm_loadbalancer_info:
+       resource_group: "{{ resource_group_name }}"
+       name: front-load-balancer
+     register: output
+
+
+
+   - name: Add all VMSS hosts
+     add_host:
+       groups: scalesethosts
+       hostname: "{{ output_ip_address.publicipaddresses[0].ip_address }}_{{ item.properties.frontendPort }}"
+       ansible_host: "{{ output_ip_address.publicipaddresses[0].ip_address }}"
+       ansible_port: "{{ item.properties.frontendPort }}"
+       ansible_ssh_user: "ubuntu"
+       ansible_ssh_pass: "{{ admin_password }}"
+     with_items:
+       - "{{ output.loadbalancers[0].properties.inboundNatRules }}"
