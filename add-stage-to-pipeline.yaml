@@ -11,6 +11,6 @@
   become: true
 
   roles:
-    - role: web-application-setup
+    - role: add-to-azure-devops
       vars:
         env: "{{ env }}"
