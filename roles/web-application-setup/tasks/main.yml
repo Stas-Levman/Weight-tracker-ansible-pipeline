@@ -51,9 +51,29 @@
         chdir: /bootcamp-app
 
    - name: Run .env creation script on hosts
-     script: ENV-creation-{{ env }}.sh
+     shell: |
+       echo "
+       PORT=8080
+       HOST=0.0.0.0
+       
+       #postgres
+       PGHOST=weight-tracker-postgresql-db-{{ env }}.postgres.database.azure.com
+       PGUSERNAME=postgres
+       PGDATABASE=postgres
+       PGPASSWORD=${PGPASSWORD}
+       PGPORT=5432
+       
+       HOST_URL=http://${HOST_URL_IP}:8080
+       COOKIE_ENCRYPT_PWD=${COOKIE_ENCRYPT_PWD}
+       NODE_ENV=development 
+       
+       # Okta configuration
+       OKTA_ORG_URL=https://dev-77800982.okta.com
+       OKTA_CLIENT_ID=${OKTA-client-ID}
+       OKTA_CLIENT_SECRET=${OKTA_CLIENT_SECRET}" | cat > .env
      args:
        chdir: /bootcamp-app
+       executable: /bin/bash
 
 
    - name: Initialize database
