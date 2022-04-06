@@ -8,7 +8,6 @@
 
 
 - hosts: scalesethosts
-  become: true
 
   roles:
     - role: add-to-azure-devops
