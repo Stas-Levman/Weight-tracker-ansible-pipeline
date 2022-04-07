@@ -42,11 +42,11 @@
 #       state: present
 #
 #
-   - name: Copy zipped artifacts and unarchve
-     unarchive:
-       copy: yes
-       src: bootcamp-app.zip
-       dest: /bootcamp-app/
+#   - name: Copy zipped artifacts and unarchve
+#     unarchive:
+#       copy: yes
+#       src: bootcamp-app.zip
+#       dest: /bootcamp-app/
 
 
    - name: Install latest PM2
