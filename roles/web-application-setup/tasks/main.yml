@@ -35,10 +35,11 @@
 #       src: bootcamp-app
 #       dest: /
 
-   - name: unarchive
-     copy: yes
-     src: bootcamp-app.zip
-     dest: /
+   - name: Copy zipped artifacts and unarchve
+     unarchive:
+       copy: yes
+       src: bootcamp-app.zip
+       dest: /bootcamp-app/
 
 
    - name: Install latest PM2
