@@ -32,7 +32,7 @@
 
    - name: Copy artifacts to VM
      copy:
-       src: /bootcamp-app
+       src: bootcamp-app
        dest: /
 
 
