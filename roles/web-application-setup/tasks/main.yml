@@ -51,6 +51,7 @@
 
    - name: Install latest PM2
      shell: sudo npm install pm2@latest -g
+     ignore_errors: yes
      args:
         chdir: /bootcamp-app
         executable: /bin/bash
