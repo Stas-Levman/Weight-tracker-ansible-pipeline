@@ -42,7 +42,7 @@
        state: present
 
 
-   - name: Copy zipped artifacts and unarchve
+   - name: Copy zipped artifacts and unarchive
      unarchive:
        copy: yes
        src: bootcamp-app.zip
