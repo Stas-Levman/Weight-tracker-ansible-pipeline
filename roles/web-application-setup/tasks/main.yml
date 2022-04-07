@@ -36,12 +36,12 @@
 #       dest: /
 
 
-   - name: install unzip
-     apt:
-       name: unzip
-       state: present
-
-
+#   - name: install unzip
+#     apt:
+#       name: unzip
+#       state: present
+#
+#
    - name: Copy zipped artifacts and unarchve
      unarchive:
        copy: yes
@@ -50,7 +50,9 @@
 
 
    - name: Install latest PM2
-     shell: sudo npm install pm2@latest -g
+     shell: |
+       npm remove pm2 -g
+       sudo npm install pm2 -g
      ignore_errors: yes
      args:
         chdir: /bootcamp-app
