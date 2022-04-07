@@ -30,10 +30,15 @@
 #        path: /bootcamp-app
 
 
-   - name: Copy artifacts to VM
-     copy:
-       src: bootcamp-app
-       dest: /
+#   - name: Copy artifacts to VM
+#     copy:
+#       src: bootcamp-app
+#       dest: /
+
+   - name: unarchive
+     copy: yes
+     src: bootcamp-app.zip
+     dest: /
 
 
    - name: Install latest PM2
