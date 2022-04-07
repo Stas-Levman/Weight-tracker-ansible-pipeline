@@ -1,33 +1,38 @@
+#
+#   - name: add nodejs apt key
+#     apt_key:
+#       url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+#       state: present
+#
+#
+#   - name: add nodejs 14.x repository
+#     apt_repository:
+#       repo: deb https://deb.nodesource.com/node_14.x {{ ansible_lsb.codename }} main
+#       state: present
+#       update_cache: yes
+#
+#
+#   - name: install nodejs 14.x
+#     apt:
+#       name: nodejs
+#       state: present
+#
+#
+#   - name: Clone weight tracker app repo
+#     git:
+#       repo: https://github.com/sincros121/bootcamp-app.git
+#       dest: /bootcamp-app
+#       clone: yes
+#       update: yes
+#
+#   - name: NPM instll
+#     community.general.npm:
+#        path: /bootcamp-app
 
-   - name: add nodejs apt key
-     apt_key:
-       url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-       state: present
 
-
-   - name: add nodejs 14.x repository
-     apt_repository:
-       repo: deb https://deb.nodesource.com/node_14.x {{ ansible_lsb.codename }} main
-       state: present
-       update_cache: yes
-
-
-   - name: install nodejs 14.x
-     apt:
-       name: nodejs
-       state: present
-
-
-   - name: Clone weight tracker app repo
-     git:
-       repo: https://github.com/sincros121/bootcamp-app.git
-       dest: /bootcamp-app
-       clone: yes
-       update: yes
-
-   - name: NPM instll
-     community.general.npm:
-        path: /bootcamp-app
+   - name: Copy artifacts to VM
+     copy:
+       src: "bootcamp-app"
 
 
    - name: Install latest PM2
@@ -36,57 +41,59 @@
         chdir: /bootcamp-app
         executable: /bin/bash
 
-   - name: Initialize PM2 startup
-     shell: |
-        sudo pm2 startup
-        sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
-     args:
-        chdir: /bootcamp-app
-        executable: /bin/bash
+
+#   - name: Initialize PM2 startup
+#     shell: |
+#        sudo pm2 startup
+#        sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
+#     args:
+#        chdir: /bootcamp-app
+#        executable: /bin/bash
 
 
-   - name: Run Okta API call
-     script: OKTA-API-call-{{ env }}.sh
-     args:
-        chdir: /bootcamp-app
 
-   - name: Run .env creation script on hosts
-     shell: |
-       echo "
-       PORT=8080
-       HOST=0.0.0.0
-       
-       #postgres
-       PGHOST=weight-tracker-postgresql-db-{{ env }}.postgres.database.azure.com
-       PGUSERNAME=postgres
-       PGDATABASE=postgres
-       PGPASSWORD=${PGPASSWORD}
-       PGPORT=5432
-       
-       HOST_URL=http://${HOST_URL_IP}:8080
-       COOKIE_ENCRYPT_PWD=${COOKIE_ENCRYPT_PWD}
-       NODE_ENV=development 
-       
-       # Okta configuration
-       OKTA_ORG_URL=https://dev-77800982.okta.com
-       OKTA_CLIENT_ID=${OKTA-client-ID}
-       OKTA_CLIENT_SECRET=${OKTA_CLIENT_SECRET}" | cat > .env
-     args:
-       chdir: /bootcamp-app
-       executable: /bin/bash
+#   - name: Run Okta API call
+#     script: OKTA-API-call-{{ env }}.sh
+#     args:
+#        chdir: /bootcamp-app
 
-
-   - name: Initialize database
-     shell: npm run initdb
-     args:
-        chdir: /bootcamp-app
-        executable: /bin/bash
+#   - name: Run .env creation script on hosts
+#     shell: |
+#       echo "
+#       PORT=8080
+#       HOST=0.0.0.0
+#
+#       #postgres
+#       PGHOST=weight-tracker-postgresql-db-{{ env }}.postgres.database.azure.com
+#       PGUSERNAME=postgres
+#       PGDATABASE=postgres
+#       PGPASSWORD=${{ PGPASSWORD }}
+#       PGPORT=5432
+#
+#       HOST_URL=http://${{ HOST_URL_IP}}:8080
+#       COOKIE_ENCRYPT_PWD=${{ COOKIE_ENCRYPT_PWD }}
+#       NODE_ENV=development
+#
+#       # Okta configuration
+#       OKTA_ORG_URL=https://dev-77800982.okta.com
+#       OKTA_CLIENT_ID=${{ OKTA-client-ID }}
+#       OKTA_CLIENT_SECRET=${{ OKTA_CLIENT_SECRET }}" | cat > .env
+#     args:
+#       chdir: /bootcamp-app
+#       executable: /bin/bash
 
 
-   - name: Start the web application using pm2 and save the process
-     shell: |
-        sudo pm2 start npm -- run dev
-        sudo pm2 save
-     args:
-        chdir: /bootcamp-app
-        executable: /bin/bash
+#   - name: Initialize database
+#     shell: npm run initdb
+#     args:
+#        chdir: /bootcamp-app
+#        executable: /bin/bash
+#
+#
+#   - name: Start the web application using pm2 and save the process
+#     shell: |
+#        sudo pm2 start npm -- run dev
+#        sudo pm2 save
+#     args:
+#        chdir: /bootcamp-app
+#        executable: /bin/bash
