@@ -35,16 +35,17 @@
        name: unzip
        state: present
 
-   - name: Copy zipped artifacts and unarchive
-     unarchive:
-       copy: yes
-       src: bootcamp-app.zip
-       dest: /bootcamp-app/
-
 
    - name: Copy .env to VM web-app folder
      copy:
        src: .env
+       dest: /bootcamp-app/
+
+
+   - name: Copy zipped artifacts and unarchive
+     unarchive:
+       copy: yes
+       src: bootcamp-app.zip
        dest: /bootcamp-app/
 
 
