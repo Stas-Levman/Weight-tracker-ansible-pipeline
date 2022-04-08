@@ -25,9 +25,6 @@
 #       clone: yes
 #       update: yes
 
-#   - name: NPM instll
-#     community.general.npm:
-#        path: /bootcamp-app
 
 
    - name: install unzip
@@ -48,9 +45,13 @@
        src: bootcamp-app.zip
        dest: /bootcamp-app/
 
+   - name: NPM instll
+     community.general.npm:
+       path: /bootcamp-app
 
-   - name: npm install nodemon
-     shell: npm install --save-dev nodemon@2.0.2
+
+#   - name: npm install nodemon
+#     shell: npm install --save-dev nodemon@2.0.2
 
 
    - name: Install latest PM2
