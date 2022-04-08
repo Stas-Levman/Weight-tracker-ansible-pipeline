@@ -41,3 +41,4 @@ terraform.rc
 .idea
 venv
 /ansible/roles/get-vault-secrets/
+roles/web-application-setup/files
