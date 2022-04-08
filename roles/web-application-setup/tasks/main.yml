@@ -5,9 +5,9 @@
        state: present
 
 
-   - name: add nodejs 14.x repository
+   - name: add nodejs 15.x repository
      apt_repository:
-       repo: deb https://deb.nodesource.com/node_14.x {{ ansible_lsb.codename }} main
+       repo: deb https://deb.nodesource.com/node_15.x {{ ansible_lsb.codename }} main
        state: present
        update_cache: yes
 
@@ -45,13 +45,13 @@
        src: bootcamp-app.zip
        dest: /bootcamp-app/
 
-   - name: NPM instll
-     community.general.npm:
-       path: /bootcamp-app
+#   - name: NPM instll
+#     community.general.npm:
+#       path: /bootcamp-app
 
 
-#   - name: npm install nodemon
-#     shell: npm install --save-dev nodemon@2.0.2
+   - name: npm install nodemon
+     shell: npm install --save-dev nodemon@2.0.2
 
 
    - name: Install latest PM2
