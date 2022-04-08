@@ -63,8 +63,11 @@
         executable: /bin/bash
 
 
-   - name: Initialize database
-     shell: npm run initdb
+   - name: Delete any previous proccess and initialize database
+     shell: |
+        pm2 delete all
+        npm run initdb 
+
      args:
         chdir: /bootcamp-app
         executable: /bin/bash
