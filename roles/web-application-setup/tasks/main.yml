@@ -25,9 +25,21 @@
 #       clone: yes
 #       update: yes
 
-   - name: NPM instll
-     community.general.npm:
-        path: /bootcamp-app
+#   - name: NPM instll
+#     community.general.npm:
+#        path: /bootcamp-app
+
+
+   - name: install unzip
+       apt:
+         name: unzip
+         state: present
+
+   - name: Copy zipped artifacts and unarchive
+     unarchive:
+       copy: yes
+       src: bootcamp-app.zip
+       dest: /bootcamp-app/
 
 
    - name: Copy .env to VM web-app folder
@@ -36,17 +48,8 @@
        dest: /bootcamp-app/
 
 
-   - name: install unzip
-     apt:
-       name: unzip
-       state: present
-
-
-   - name: Copy zipped artifacts and unarchive
-     unarchive:
-       copy: yes
-       src: bootcamp-app.zip
-       dest: /bootcamp-app/
+   - name: npm install nodemon
+     shell: npm install --save-dev nodemon@2.0.2
 
 
    - name: Install latest PM2
