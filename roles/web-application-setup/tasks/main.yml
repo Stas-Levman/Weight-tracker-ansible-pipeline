@@ -31,9 +31,9 @@
 
 
    - name: install unzip
-       apt:
-         name: unzip
-         state: present
+     apt:
+       name: unzip
+       state: present
 
    - name: Copy zipped artifacts and unarchive
      unarchive:
