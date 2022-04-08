@@ -45,22 +45,28 @@
        src: bootcamp-app.zip
        dest: /bootcamp-app/
 
-#   - name: NPM instll
-#     community.general.npm:
-#       path: /bootcamp-app
+   - name: Uninstall modules
+     shell: rm -rf node_modules
+     args:
+       chdir: /bootcamp-app
+       executable: /bin/bash
+
+   - name: NPM instll
+     community.general.npm:
+       path: /bootcamp-app
    -
-   - name: npm install nodemon
-     shell: npm install -g npm
-     args:
-       chdir: /bootcamp-app
-       executable: /bin/bash
+#   - name: npm install nodemon
+#     shell: npm install -g npm
+#     args:
+#       chdir: /bootcamp-app
+#       executable: /bin/bash
 
 
-   - name: npm install nodemon
-     shell: npm install --save-dev nodemon@2.0.2
-     args:
-       chdir: /bootcamp-app
-       executable: /bin/bash
+#   - name: npm install nodemon
+#     shell: npm install --save-dev nodemon@2.0.2
+#     args:
+#       chdir: /bootcamp-app
+#       executable: /bin/bash
 
 
    - name: Install latest PM2
