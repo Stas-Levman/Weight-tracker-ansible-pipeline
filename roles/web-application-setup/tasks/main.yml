@@ -16,16 +16,6 @@
      apt:
        name: nodejs
        state: present
-#
-
-#   - name: Clone weight tracker app repo
-#     git:
-#       repo: https://github.com/sincros121/bootcamp-app.git
-#       dest: /bootcamp-app
-#       clone: yes
-#       update: yes
-
-
 
    - name: install unzip
      apt:
@@ -45,29 +35,17 @@
        src: bootcamp-app.zip
        dest: /bootcamp-app/
 
+
    - name: Uninstall modules
      shell: rm -rf node_modules
      args:
        chdir: /bootcamp-app
        executable: /bin/bash
 
+
    - name: NPM instll
      community.general.npm:
        path: /bootcamp-app
-   -
-#   - name: npm install nodemon
-#     shell: npm install -g npm
-#     args:
-#       chdir: /bootcamp-app
-#       executable: /bin/bash
-
-
-#   - name: npm install nodemon
-#     shell: npm install --save-dev nodemon@2.0.2
-#     args:
-#       chdir: /bootcamp-app
-#       executable: /bin/bash
-
 
    - name: Install latest PM2
      shell: sudo npm install pm2@latest -g
@@ -83,38 +61,6 @@
      args:
         chdir: /bootcamp-app
         executable: /bin/bash
-
-
-
-#   - name: Run Okta API call
-#     script: OKTA-API-call-{{ env }}.sh
-#     args:
-#        chdir: /bootcamp-app
-
-#   - name: Run .env creation script on hosts
-#     shell: |
-#       echo "
-#       PORT=8080
-#       HOST=0.0.0.0
-#
-#       #postgres
-#       PGHOST=weight-tracker-postgresql-db-{{ env }}.postgres.database.azure.com
-#       PGUSERNAME=postgres
-#       PGDATABASE=postgres
-#       PGPASSWORD=${{ PGPASSWORD }}
-#       PGPORT=5432
-#
-#       HOST_URL=http://${{ HOST_URL_IP}}:8080
-#       COOKIE_ENCRYPT_PWD=${{ COOKIE_ENCRYPT_PWD }}
-#       NODE_ENV=development
-#
-#       # Okta configuration
-#       OKTA_ORG_URL=https://dev-77800982.okta.com
-#       OKTA_CLIENT_ID=${{ OKTA-client-ID }}
-#       OKTA_CLIENT_SECRET=${{ OKTA_CLIENT_SECRET }}" | cat > .env
-#     args:
-#       chdir: /bootcamp-app
-#       executable: /bin/bash
 
 
    - name: Initialize database
