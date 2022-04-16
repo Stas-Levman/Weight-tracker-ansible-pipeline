@@ -40,4 +40,9 @@
   args:
     executable: /bin/bash
 
+- name: Copy .env to VM web-app folder
+  copy:
+    src: .env
+    dest: /bootcamp-app/
+
   
