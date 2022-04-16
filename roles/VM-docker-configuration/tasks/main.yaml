@@ -35,7 +35,7 @@
   ansible.builtin.meta:
     reset_connection  
 
-- name: docker ps
+- name: docker ps check
   shell: docker ps
   args:
     executable: /bin/bash
