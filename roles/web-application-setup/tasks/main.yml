@@ -68,7 +68,6 @@
         pm2 delete all
         npm run initdb
      run_once: true
-
      args:
         chdir: /bootcamp-app
         executable: /bin/bash
