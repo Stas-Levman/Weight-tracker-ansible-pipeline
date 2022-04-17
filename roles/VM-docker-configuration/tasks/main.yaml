@@ -31,14 +31,14 @@
     groups: docker
     append: yes
 
-- name: reset ssh connection to allow user changes to affect ansible user
-  ansible.builtin.meta:
-    reset_connection  
+# - name: reset ssh connection to allow user changes to affect ansible user
+#   ansible.builtin.meta:
+#     reset_connection  
 
-- name: docker ps check
-  shell: docker ps
-  args:
-    executable: /bin/bash
+# - name: docker ps check
+#   shell: docker ps
+#   args:
+#     executable: /bin/bash
 
 # - name: Copy .env to VM web-app folder
 #   copy:
